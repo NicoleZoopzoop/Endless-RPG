@@ -1,12 +1,30 @@
-#Endless RPG:
-'''
-   
-'''
+"""Endless RPG
+
+"""
+
 from random import randint
 
-#Character objects are the combatants taking turns in the battle loop
-class Character:
+class Character(object):
+    """Character objects are the combatants
+    taking turns in the battle loop.
+
+    Attributes:
+        name (str):
+        hp (int):
+        ...
+
+    """
+
     def __init__(self, name, hp, atk):
+        """Create a character from basic stats.
+
+        Arguments:
+            name (str): asdfasdf
+            hp (int): asdfasfd
+            atk (int): asdfasdf
+
+        """
+
         self.name = name
         self.hp = hp
         self.atk = atk
@@ -14,12 +32,20 @@ class Character:
         self.blocking = False
         self.winding_up = False
 
-    #damage handling, also checks if character taking damage is blocking
+    def __str__(self):
+        return '<Character "%s" hp=%s atk=%s>' % (self.name, self.hp, self.atk)
     def take_damage(self, damage):
+        """Handle the supplied amount of damage
+        this character is supposed to take.
+
+        Arguments:
+            damage (int): Damage to take.
+
+        """
+
         if self.blocking:        
             self.hp -= int(damage / 3)
             self.blocking = False        
-
         else:
             self.hp -= damage
     
@@ -53,21 +79,21 @@ class Character:
 
 #this is a placeholder Enemy
 class Enemy(Character):
-    def __init__(self, Player):
-        super(Enemy, self).__init__()
-        self.name = 'monster'
-        self.hp = randint(1, player.hp)
-        self.atk = randint(1, player.atk)
+    def __init__(self, name):
+        super(Enemy, self).__init__(name,
+                                    randint(1, player.hp),
+                                    randint(1, player.atk))
+
 
 #the Player
 class Player(Character):
-    def __init__(self):
-        super(Character, self).__init__()
-        self.name = 'you'
-        self.hp = 10
-        self.atk = 290
-        
+
+    def __init__(self, name, hp, atk):
+        super(Player, self).__init__(name, hp, atk)
+
 
 #tests
-
-
+player = Player("Kiki", 100, 10)
+enemy = Enemy("monster")
+print(player)
+print(enemy)
